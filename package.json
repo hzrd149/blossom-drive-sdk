@@ -1,5 +1,5 @@
 {
-  "name": "blossom-drive-client",
+  "name": "blossom-drive-sdk",
   "version": "0.1.0",
   "description": "A library for working with blossom drives",
   "type": "module",
