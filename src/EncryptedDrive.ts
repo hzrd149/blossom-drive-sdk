@@ -2,7 +2,7 @@ import {
   BlossomClient,
   type EventTemplate,
   type SignedEvent,
-} from "blossom-client";
+} from "blossom-client-sdk";
 import { base64 } from "@scure/base";
 
 import { Drive, getEmptyMetadata, type DriveMetadata } from "./Drive.js";

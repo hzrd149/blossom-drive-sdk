@@ -3,7 +3,7 @@ import {
   type EventTemplate,
   type Signer,
   BlossomClient,
-} from "blossom-client";
+} from "blossom-client-sdk";
 import { EventEmitter } from "events";
 import { naddrEncode } from "nostr-tools/nip19";
 

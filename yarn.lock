@@ -73,10 +73,10 @@
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.3.tgz#a8ef894305af28d1fc6d2dfdfc98e899591ea529"
   integrity sha512-trOc4AAUThEz9hapPtSd7wf5tiQKvTtu5b371UxXdTuqzIh0ArcRspRP0i0Viu+LXstIQ1z96t1nsPxT9ol01g==
 
-blossom-client@^0.4.0:
+blossom-client-sdk@^0.4.0:
   version "0.4.0"
-  resolved "https://registry.yarnpkg.com/blossom-client/-/blossom-client-0.4.0.tgz#1607e5f862aa14a4f7e3ca91c025c778477b0163"
-  integrity sha512-kMEMmvaH2sJ2vyJoaG28raBmTtohbFgAJ/wu0/wvNCQORxsfCrmDEmF0QuKCaFYEL4eUoBOTyhEPzhd7dekjlA==
+  resolved "https://registry.yarnpkg.com/blossom-client-sdk/-/blossom-client-sdk-0.4.0.tgz#3b40e478dbe1a324f579e29570b46eb12968074d"
+  integrity sha512-xw1lq15VCfwb8RrmKvwxV92bwD5qwou97PpZvutH+WHT87bokZrx1uCBh0Ww3x+eJqamevvW2w6QAc+BYwILCg==
   dependencies:
     cross-fetch "^4.0.0"
 

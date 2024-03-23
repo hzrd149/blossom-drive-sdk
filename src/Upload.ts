@@ -2,7 +2,7 @@ import {
   BlossomClient,
   type BlobDescriptor,
   type Signer,
-} from "blossom-client";
+} from "blossom-client-sdk";
 import { nanoid } from "nanoid";
 import mime from "mime";
 import { EventEmitter } from "events";
