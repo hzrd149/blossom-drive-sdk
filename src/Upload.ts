@@ -24,21 +24,33 @@ export type UploadFileStatus = {
   >;
 };
 
+/** General purpose class for uploading blobs to drives */
 export class Upload extends EventEmitter {
   drive: Drive | EncryptedDrive;
+
+  /** The array of blossom servers to upload the files to */
   servers: string[];
+
+  /** The signer used to sign auth events */
   signer: Signer;
+
+  /** The base path in the drive to add all the files to */
   basePath: string;
 
   complete = false;
   running = false;
 
+  /** The array of files to upload to the drive */
   files: { id: string; file: File; path: string }[] = [];
+  /** Current upload status for each file */
   status: Record<string, UploadFileStatus> = {};
 
+  /** The Blobs returned for each file upload, blobs[server][file.id] */
   blobs: Record<string, Record<string, BlobDescriptor>> = {};
+  /** The Error returned for each file upload, blobs[server][file.id] */
   errors: Record<string, Record<string, Error>> = {};
 
+  /** Total upload progress */
   get progress() {
     const serverProgress: Record<string, number> = {};
     for (const server of this.servers) {
@@ -70,15 +82,21 @@ export class Upload extends EventEmitter {
     this.signer = signer;
   }
 
-  async addFile(file: File) {
-    const path = file.webkitRelativePath ? file.webkitRelativePath : file.name;
+  /** Add a single file to the upload */
+  async addFile(file: File, path?: string) {
+    path =
+      path || (file.webkitRelativePath ? file.webkitRelativePath : file.name);
     this.files.push({ id: nanoid(), file, path });
   }
+
+  /** Add a FileList to the upload */
   async addFileList(fileList: FileList) {
     for (const file of fileList) {
       await this.addFile(file);
     }
   }
+
+  /** Read all files from a FileSystemEntry and add to the upload */
   async addFileSystemEntry(entry: FileSystemEntry) {
     if (entry instanceof FileSystemFileEntry && entry.isFile) {
       try {
@@ -94,6 +112,7 @@ export class Upload extends EventEmitter {
     }
   }
 
+  /** Start uploading the files to the servers */
   async upload() {
     if (this.running || this.complete) return;
     this.running = true;

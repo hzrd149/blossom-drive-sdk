@@ -29,6 +29,15 @@ function now() {
 
 export const DRIVE_KIND = 30563;
 
+/**
+ * A simple method responsible for publish a signer nostr event to relays
+ * @example
+ * function publisher(event){
+ *   const relay = Relay.connect("wss://relay.example.com");
+ *
+ *   relay.publish(event)
+ * }
+ */
 export type Publisher = (event: SignedEvent) => Promise<void>;
 export type DriveMetadata = {
   name: string;
@@ -166,6 +175,7 @@ export class Drive extends EventEmitter {
     return { name, description, servers, identifier, pubkey, treeTags };
   }
 
+  /** Save any pending changes to nostr */
   async save() {
     if (!this.modified) return;
     const signed = await this.signer(this.createEventTemplate());
@@ -192,6 +202,7 @@ export class Drive extends EventEmitter {
     this.modified = false;
     this.emit("change", this);
   }
+  /** Reset any pending changes */
   reset() {
     if (this.modified) {
       this.resetFromEvent();
@@ -200,9 +211,12 @@ export class Drive extends EventEmitter {
     }
   }
 
+  /** Gets the file or folder at the path */
   getPath(path: Path, create = false) {
     return getPath(this.tree, path, create);
   }
+
+  /** Gets the folder at the path, pass create=true in to create an empty folder */
   getFolder(path: Path, create = false) {
     const folder = getFolder(this.tree, path, create);
     if (create) this.modified = true;
@@ -223,6 +237,7 @@ export class Drive extends EventEmitter {
     return new URL("/" + file.sha256 + ext, servers[0]).toString();
   }
 
+  /** Downloads the file at the path */
   async downloadFile(path: Path, additionalServers: string[] = []) {
     const file = this.getFile(path);
     const servers = [...this.servers];
@@ -239,17 +254,21 @@ export class Drive extends EventEmitter {
     return null;
   }
 
+  /** Removes the file or folder at the path */
   remove(path: Path) {
     remove(this.tree, path);
     this.modified = true;
     this.emit("change", this);
   }
+
+  /** Moves the file or folder from src to dest */
   move(src: Path, dest: Path) {
     move(this.tree, src, dest);
     this.modified = true;
     this.emit("change", this);
   }
 
+  /** Updates or creates a new file at the path */
   setFile(path: Path, metadata: FileMetadata) {
     const file = setFile(this.tree, path, metadata);
     this.modified = true;
@@ -257,6 +276,7 @@ export class Drive extends EventEmitter {
     return file;
   }
 
+  /** Checks if there is a file with a matching sha256 hash  */
   hasHash(sha256: string) {
     const walk = (entry: TreeFolder) => {
       for (const child of entry) {
@@ -268,6 +288,18 @@ export class Drive extends EventEmitter {
     return walk(this.tree);
   }
 
+  /**
+   * Iterate over the files
+   * @example
+   * for(let fileOrFolder of drive){
+   *   if(fileOrFolder instanceof TreeFolder){
+   *     // keep looping
+   *   }
+   *   else if(fileOrFolder instanceof TreeFile){
+   *     console.log(fileOrFolder.path)
+   *   }
+   * }
+   */
   [Symbol.iterator]() {
     return this.tree[Symbol.iterator]();
   }

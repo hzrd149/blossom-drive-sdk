@@ -20,13 +20,16 @@
     "@scure/base": "^1.1.6",
     "blossom-client-sdk": "^0.4.0",
     "events": "^3.3.0",
+    "hyperdht": "^6.13.1",
     "mime": "^4.0.1",
     "nanoid": "^5.0.6",
-    "nostr-tools": "^2.3.2"
+    "nostr-tools": "^2.3.2",
+    "simple-hyperproxy": "^0.0.7"
   },
   "devDependencies": {
     "@types/events": "^3.0.3",
     "prettier": "^3.2.5",
+    "typedoc": "^0.25.12",
     "typescript": "^5.3.3"
   }
 }

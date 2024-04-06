@@ -22,6 +22,10 @@ export class EncryptedDrive extends Drive {
   logn = DEFAULT_SCRYPT_LOGN;
   locked = true;
 
+  /**
+   * Attempts to decrypt the drive with the provided password
+   * If successful it will set locked=false and save the password in memory
+   */
   async unlock(password: string) {
     if (!this.event) throw new Error("No Event");
     if (!this.locked) throw new Error("Already unlocked");
@@ -44,7 +48,7 @@ export class EncryptedDrive extends Drive {
     }
   }
 
-  /** used to set the password on new drives */
+  /** Used to set the password on new drives */
   setPassword(password: string, logn = DEFAULT_SCRYPT_LOGN) {
     if (this.locked && !drivePasswords.has(this)) {
       drivePasswords.set(this, password);
@@ -103,6 +107,7 @@ export class EncryptedDrive extends Drive {
     return false;
   }
 
+  /** Encrypt a Blob with the drives password */
   async encryptBlob(blob: Blob) {
     if (this.locked) throw new Error("Drive locked");
     const password = drivePasswords.get(this);
@@ -113,6 +118,7 @@ export class EncryptedDrive extends Drive {
     return new Blob([ciphertext], { type: "application/octet-stream" });
   }
 
+  /** Decrypt a Blob with the drives password */
   async decryptBlob(blob: Blob, type?: string) {
     if (this.locked) throw new Error("Drive locked");
     const password = drivePasswords.get(this);
@@ -123,6 +129,7 @@ export class EncryptedDrive extends Drive {
     return new Blob([plaintext], { type });
   }
 
+  /** Download and Decrypt a file at the provided path */
   async downloadFile(path: Path, additionalServers: string[] = []) {
     if (this.locked) throw new Error("Drive locked");
     const password = drivePasswords.get(this);

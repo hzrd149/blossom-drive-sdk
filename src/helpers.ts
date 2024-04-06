@@ -17,6 +17,7 @@ export function readFileSystemDirectory(directory: FileSystemDirectoryEntry) {
   });
 }
 
+/** returns the file extension for the provided MIME type */
 export function getExtension(type?: string) {
   if (!type) return;
   const ext = mime.getExtension(type);

@@ -81,6 +81,7 @@ export function move(root: TreeFolder, src: Path, dest: Path) {
   destFolder.set(basename(parsePath(dest)), entry);
 }
 
+/** Walks a TreeFolder and calls the provided function on each branch */
 export function walkTree(
   branch: TreeFolder | TreeFile,
   fn: (branch: TreeFolder | TreeFile) => boolean | undefined | void,
@@ -93,6 +94,7 @@ export function walkTree(
   }
 }
 
+/** Returns all the file types found in a TreeFolder */
 export function fileTypesInTree(root: TreeFolder) {
   const types = new Set<string>();
   walkTree(root, (branch) => {
