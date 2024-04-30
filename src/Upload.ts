@@ -5,7 +5,7 @@ import {
 } from "blossom-client-sdk";
 import { nanoid } from "nanoid";
 import mime from "mime";
-import { EventEmitter } from "events";
+import { EventEmitter } from "eventemitter3";
 
 import type { Drive } from "./Drive.js";
 import { readFileSystemDirectory, readFileSystemFile } from "./helpers.js";
@@ -24,8 +24,14 @@ export type UploadFileStatus = {
   >;
 };
 
+type EventMap = {
+  start: [Upload];
+  progress: [number];
+  complete: [Upload];
+};
+
 /** General purpose class for uploading blobs to drives */
-export class Upload extends EventEmitter {
+export class Upload extends EventEmitter<EventMap> {
   drive: Drive | EncryptedDrive;
 
   /** The array of blossom servers to upload the files to */

@@ -4,7 +4,7 @@ import {
   type Signer,
   BlossomClient,
 } from "blossom-client-sdk";
-import { EventEmitter } from "events";
+import { EventEmitter } from "eventemitter3";
 import { naddrEncode } from "nostr-tools/nip19";
 
 import { TreeFolder } from "./FileTree/TreeFolder.js";
@@ -57,7 +57,12 @@ export const getEmptyMetadata = () =>
     treeTags: [],
   }) satisfies DriveMetadata;
 
-export class Drive extends EventEmitter {
+type EventMap = {
+  change: [Drive];
+  update: [Drive];
+};
+
+export class Drive extends EventEmitter<EventMap> {
   tree: TreeFolder;
   event?: EventTemplate | SignedEvent;
 
