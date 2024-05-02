@@ -83,10 +83,10 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
-blossom-client-sdk@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/blossom-client-sdk/-/blossom-client-sdk-0.4.0.tgz#3b40e478dbe1a324f579e29570b46eb12968074d"
-  integrity sha512-xw1lq15VCfwb8RrmKvwxV92bwD5qwou97PpZvutH+WHT87bokZrx1uCBh0Ww3x+eJqamevvW2w6QAc+BYwILCg==
+blossom-client-sdk@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/blossom-client-sdk/-/blossom-client-sdk-0.5.1.tgz#9b07ed2ebd29903268a44ea1b7f1b54d2edace46"
+  integrity sha512-RuT+uyNLVToSivANQrrA2Kmio8l0Z2lEIs3e7OwBnd/gxcl+KoINwuZ/JVjsquOPNcjkXBVbsvmRzJnesmkjWg==
   dependencies:
     cross-fetch "^4.0.0"
 

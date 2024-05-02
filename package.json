@@ -1,6 +1,6 @@
 {
   "name": "blossom-drive-sdk",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A library for working with blossom drives",
   "type": "module",
   "main": "./lib/index.js",
@@ -18,7 +18,7 @@
   "dependencies": {
     "@noble/hashes": "^1.4.0",
     "@scure/base": "^1.1.6",
-    "blossom-client-sdk": "^0.4.0",
+    "blossom-client-sdk": "^0.5.1",
     "eventemitter3": "^5.0.1",
     "mime": "^4.0.1",
     "nanoid": "^5.0.6",
