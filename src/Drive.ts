@@ -136,11 +136,12 @@ export class Drive extends EventEmitter<EventMap> {
   protected createEventTemplate() {
     let newTags = updateTreeInTags(this.event?.tags || [], this.tree);
 
-    const removeTags = ["name", "description", "d", "r"];
+    const removeTags = ["name", "description", "d", "r", "server"];
     newTags = newTags.filter((t) => !removeTags.includes(t[0]));
 
     for (const server of this.servers)
-      newTags.unshift(["r", new URL("/", server).toString()]);
+      newTags.unshift(["server", new URL("/", server).toString()]);
+
     newTags.unshift(
       ["name", this.name],
       ["description", this.description],
@@ -163,7 +164,7 @@ export class Drive extends EventEmitter<EventMap> {
       event.tags.find((t) => t[0] === "description")?.[1] ?? "";
     const servers =
       event.tags
-        .filter((t) => t[0] === "r" && t[1])
+        .filter((t) => (t[0] === "r" || t[0] === "server") && t[1])
         .map((t) => new URL("/", t[1]).toString()) || [];
 
     const identifier = event.tags.find((t) => t[0] === "d")?.[1];
